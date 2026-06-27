@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Employee, EvaluationPeriod, Evaluation, CompetencyScore, ASK_GROUP_LABELS } from '@/lib/types';
+import { Employee, EvaluationPeriod, Evaluation, CompetencyEvaluation, ASK_GROUP_LABELS } from '@/lib/types';
 import { getEmployees, getEvaluationPeriods, getEvaluationsByEmployee, getPositionCompetencies, getCompetencies, addEvaluation } from '@/lib/db';
 import { ClipboardCheck, Save, History, Star, User, Calendar, CheckCircle2 } from 'lucide-react';
 
@@ -13,7 +13,7 @@ export default function EvaluationModule() {
   const [selectedPeriod, setSelectedPeriod] = useState<string>('');
   const [evalType, setEvalType] = useState<'self' | 'manager' | 'peer' | '360'>('manager');
   
-  const [scores, setScores] = useState<CompetencyScore[]>([]);
+  const [scores, setScores] = useState<CompetencyEvaluation[]>([]);
   const [overallComment, setOverallComment] = useState('');
   
   const [loading, setLoading] = useState(true);
@@ -47,7 +47,7 @@ export default function EvaluationModule() {
       getCompetencies()
     ]);
     
-    const initialScores: CompetencyScore[] = framework.map(fw => {
+    const initialScores: CompetencyEvaluation[] = framework.map(fw => {
       const comp = comps.find(c => c.id === fw.competencyId)!;
       return {
         competencyId: fw.competencyId,
@@ -90,7 +90,7 @@ export default function EvaluationModule() {
   };
 
   const calculateWeightedTotal = () => {
-    if (scores.length === 0) return 0;
+    if (scores.length === 0) return '0';
     const totalWeight = scores.reduce((sum, s) => sum + s.weight, 0);
     const weightedSum = scores.reduce((sum, s) => sum + (s.finalScore * s.weight), 0);
     return (weightedSum / totalWeight).toFixed(2);
