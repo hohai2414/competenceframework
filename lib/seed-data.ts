@@ -12,8 +12,8 @@ import {
 } from './types';
 
 export const SEED_DEPARTMENTS: Department[] = [
-  { id: 'dept-1', name: 'Phát Triển Kinh Doanh & Sản Phẩm', description: 'Khối Kinh doanh' },
-  { id: 'dept-2', name: 'Kỹ Thuật & Vận Hành', description: 'Khối Kỹ thuật' },
+  { id: 'dept-1', name: 'Phát Triển Kinh Doanh & Sản Phẩm', description: 'Khối Kinh doanh', teams: [] },
+  { id: 'dept-2', name: 'Kỹ Thuật & Vận Hành', description: 'Khối Kỹ thuật', teams: [] },
 ];
 
 export const SEED_TEAMS: Team[] = [
